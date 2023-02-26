@@ -10,13 +10,13 @@ import { useFetchContactsQuery} from "redux/rtk-contacts/rtk-contacts.api";
 import { Header } from "./Header/Header";
 import Login from "./Login/Login";
 import { Register1 } from "./Register/Register";
+import { useEffect } from "react";
+import { refreshUser } from "redux/Auth/auth.operaiton";
 
 
 
 export const App = () =>{
   const {isLoading, isSuccess}= useFetchContactsQuery()
-  console.log('isSuccess: ', isSuccess);
-  
 
   const filter = useSelector(selectFilters)
 
@@ -25,7 +25,9 @@ export const App = () =>{
   const addFilter = (value) => {
     dispatch(usersSearchAction(value))
   }
-
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
 
 
   return (
