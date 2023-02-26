@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 
 export const Form = () => {
     const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
+    const [number, setNumber] = useState('');
     const {data}= useGetContactsQuery()
     const [addUser] = useAddUserMutation()
 
@@ -15,32 +15,31 @@ export const Form = () => {
         setName(e.currentTarget.value)
     }
     const handlePhoneChange = (e) =>{
-        setPhone(e.currentTarget.value)
+        setNumber(e.currentTarget.value)
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        addContact(name,phone);
-        setPhone("");
+        addContact(name,number);
+        setNumber("");
         setName('');
         e.target.reset()
         }
        
          
-  const checkIsInContacts = (value) => {
-    const checked = data.find(contact => contact.name === value) !== undefined;
-    return checked
-  }
-  const addContact = (name, phone) => {
-    if (checkIsInContacts(name)) {
+        const checkIsInContacts = (data, value) => {
+          const checked = data.find(contact => contact.name === value) !== undefined;
+          return checked
+        }
+        
+  const addContact = (name, number) => {
+    if (checkIsInContacts(data, name)) {
       alert(`${name} is already in contacts`);
       return;
     }
-
-    addUser({id:shortid.generate(),name,phone}); 
+    addUser({ id: shortid.generate(), name, number });
   };
 
-        
-        return(
+  return(
             <FormWrap autoComplete="off" onSubmit={handleSubmit}>
             <Label>
                 <TextField type={"text"} 
@@ -60,14 +59,14 @@ export const Form = () => {
                        name ={"telephone"}
                        onChange ={handlePhoneChange}
                        pattern = {"\\+?\\d{1,4}?[-.\\s]?\\(?\\d{1,3}?\\)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}"}
-                       value = {phone}
+                       value = {number}
                        id="filled-basic" 
                        label="Phone" 
                        variant="filled"
                        title = {"Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"}/>
                        
             </Label>
-            <SubmitBtn variant="contained">Submit</SubmitBtn>
+            <SubmitBtn variant="contained" type="submit">Submit</SubmitBtn>
         </FormWrap>
         )
     

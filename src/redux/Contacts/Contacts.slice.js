@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { contactsInitState } from './Contacts.init-state.slice';
-// import { getContactsThunk } from './Contacts.thunk';
+import { getContactsThunk } from './Contacts.thunk';
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -11,19 +11,20 @@ const contactsSlice = createSlice({
           state.search = payload
           
       },
+
   },
-//   extraReducers: {
-//      [getContactsThunk.pending]: state =>{
-//           state.status = "loading"
-//      },
-//      [getContactsThunk.fulfilled]: (state, {payload}) =>{
-//           state.status = 'success';
-//           state.contacts = payload;
-//      },
-//      [getContactsThunk.error]: state =>{
-//          state.status = 'error'
-//      }
-//   }
+  // extraReducers: {
+  //    [getContactsThunk.pending]: state =>{
+  //         state.status = "loading"
+  //    },
+  //    [getContactsThunk.fulfilled]: (state, {payload}) =>{
+  //         state.status = 'success';
+  //         state.contacts = payload;
+  //    },
+  //    [getContactsThunk.error]: state =>{
+  //        state.status = 'error'
+  //    }
+  // }
 });
 
 export const {usersSearchAction} = contactsSlice.actions;

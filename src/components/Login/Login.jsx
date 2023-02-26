@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState } from "react";
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +15,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LinkTo } from './Login.styled';
+import { useDispatch } from 'react-redux';
+import { login, logOut } from 'redux/Auth/auth.operaiton';
 
 function Copyright(props) {
   return (
@@ -30,15 +34,25 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  const dispatch = useDispatch()
+    const handleEmail = (e) => {
+      setEmail(e.target.value)
+  }
+  const handlePassword = (e) =>{
+    setPassword(e.target.value)
+    
+  }
+  const clicks = () =>{
+    dispatch(logOut())
+  }
+ 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    dispatch(login({email,password}))
   };
-
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -67,6 +81,8 @@ export default function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              onInput={handleEmail}
+              value = {email}
             />
             <TextField
               margin="normal"
@@ -77,6 +93,8 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onInput={handlePassword}
+              value = {password}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -102,6 +120,7 @@ export default function Login() {
             </Grid>
           </Box>
         </Box>
+        <button type='button' onClick={clicks}>asd</button>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>

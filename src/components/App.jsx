@@ -15,6 +15,7 @@ import { Register1 } from "./Register/Register";
 
 export const App = () =>{
   const {isLoading, isSuccess}= useGetContactsQuery()
+  console.log('isSuccess: ', isSuccess);
   
 
   const filter = useSelector(selectFilters)
@@ -33,6 +34,7 @@ export const App = () =>{
     <Container>
       <Routes>
         <Route path="/" element={<Login/>}/>
+        
         <Route path="contacts" element={<>  <Form/>
           <Title>Contacts</Title>
           <InputFilter onInput={addFilter} value={filter}/>
@@ -44,3 +46,6 @@ export const App = () =>{
     </BrowserRouter>
   )
 }
+
+
+// {isSuccess &&  <Contacts/>}

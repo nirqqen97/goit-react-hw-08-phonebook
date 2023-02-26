@@ -1,35 +1,29 @@
-import { createApi,fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react';
+import axios from 'axios';
+
 export const contactsApi = createApi({
   reducerPath: 'rtk-contacts',
   tagTypes: ['Contacts'],
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://63f793b8e8a73b486afb43d3.mockapi.io',
-  }),
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     getContacts: builder.query({
-      query: () => '/contacts',
-      providesTags: ({ data }) => {
-        return data
+      query: () => axios.get('/contacts').then((response) => response.data),
+      providesTags: (result) =>
+        result
           ? [
-              ...data.map(({ id }) => ({ type: 'Contacts', id })),
+              ...result.map(({ id }) => ({ type: 'Contacts', id })),
               { type: 'Contacts', id: 'LIST' },
             ]
-          : [{ type: 'Contacts', id: 'LIST' }];
-      },
+          : [{ type: 'Contacts', id: 'LIST' }],
     }),
+
     deleteContacts: builder.mutation({
-      query: id => ({
-        url: `contacts/${id}`,
-        method: 'DELETE',
-      }),
+      query: (id) => axios.delete(`contacts/${id}`).then(() => id),
       invalidatesTags: ['Contacts'],
     }),
+
     addUser: builder.mutation({
-      query: newUser => ({
-        url: 'contacts',
-        method: 'POST',
-        body: newUser,
-      }),
+      query: (newUser) =>
+        axios.post('/contacts', newUser).then((response) => response.data),
       invalidatesTags: ['Contacts'],
     }),
   }),

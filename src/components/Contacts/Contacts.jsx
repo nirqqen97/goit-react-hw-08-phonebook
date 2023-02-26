@@ -7,8 +7,8 @@ import { FormList } from "./Contacts.styled";
 
 export const Contacts = ({deleteFromContacts}) =>{
   const {data}= useGetContactsQuery();
+  console.log('data: ', data);
   const filter = useSelector(selectFilters)
-
   const contactsFilter = () => {
     const filtered = data.filter(contact =>
       contact.name.toLowerCase().trim().includes(filter.toLowerCase().trim()));

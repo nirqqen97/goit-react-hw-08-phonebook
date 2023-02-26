@@ -15,7 +15,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LinkTo } from 'components/Login/Login.styled';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { register } from 'redux/Auth/auth.operaiton';
 
 function Copyright(props) {
   return (
@@ -34,23 +35,26 @@ const theme = createTheme();
 
 export const Register1 = () =>{
   const [isLoading, setIsLoading] = useState(false);
-  
+    const dispatch = useDispatch()
     const [name, setName] = useState('');
-    const [mail, setMail] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState("");
     
     
     const handleSubmit = (event) => {
         event.preventDefault();
-    // const contact = {
-    //   name,
-    //   password,
-    //   mail
-    // }
+    const contact = {
+      name,
+      password,
+      email
+    }
     try {
-      setIsLoading(true)
-      axios.post('https://connections-api.herokuapp.com/users/signup',{name,password,mail})
-      setIsLoading(false)
+      setIsLoading(true);
+      dispatch(register(contact));
+      setName('');
+      setEmail('');
+      setPassword('')
+      setIsLoading(false);
 
     } catch (error) {
       console.error(error)
@@ -61,7 +65,7 @@ export const Register1 = () =>{
           setName(e.target.value)
       }
       const handleMail = (e) =>{
-          setMail(e.target.value)
+          setEmail(e.target.value)
       }
       const handlePassword = (e) => {
           setPassword(e.target.value)
@@ -110,7 +114,7 @@ export const Register1 = () =>{
                       name="email"
                       autoComplete="email"
                       onInput={handleMail}
-                      value = {mail}
+                      value = {email}
                     />
                   </Grid>
                   <Grid item xs={12}>
