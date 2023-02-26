@@ -10,6 +10,7 @@ export const InputFilter = () => {
     const dispatch = useDispatch()
  
         const handeInput =  ({target, }) => {
+            console.log('target: ', target.value);
             dispatch(usersSearchAction(target.value))}
  return ( 
          <Label>

@@ -6,9 +6,7 @@ const contactsSlice = createSlice({
   initialState: contactsInitState,
   reducers: {
      usersSearchAction: (state,{payload}) => {
-          
           state.search = payload
-          
       },
   },
 
