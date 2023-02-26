@@ -13,7 +13,7 @@ export const ContactItem = ({c}) =>{
     }
     return <Item>
         <Name>{c.name}:</Name>
-        <Phone>{c.phone}</Phone>
+        <Phone>{c.number}</Phone>
         <Btn variant="contained" type="button" onClick={handleClick}>Delete</Btn>
         </Item>
 }

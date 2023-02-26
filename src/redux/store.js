@@ -11,7 +11,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { authReducer } from './Auth/Auth.slice';
-import { contactsReducer } from './Contacts/Contacts.slice';
+import { contactsSlice } from './Contacts/Contacts.slice';
 // import { filterSlice } from './contacts/filterSlice';
 import { contactsApi } from './rtk-contacts/rtk-contacts.api';
 
@@ -32,7 +32,7 @@ const authPersistConfig = {
 
 export const store = configureStore({
   reducer: {
-    contacts:contactsReducer,
+    [contactsSlice.name]:contactsSlice.reducer,
     auth: persistReducer(authPersistConfig, authReducer),
     [contactsApi.reducerPath]: contactsApi.reducer,
     // filter: filterSlice.reducer,

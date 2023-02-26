@@ -1,3 +1,3 @@
 
-export const selectFilters = state =>  state.contacts.search
+export const selectFilters = state =>  state.filter.search
 

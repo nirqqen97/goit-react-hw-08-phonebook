@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { contactsInitState } from './Contacts.init-state.slice';
 
-const contactsSlice = createSlice({
-  name: 'contacts',
+export const contactsSlice = createSlice({
+  name: 'filter',
   initialState: contactsInitState,
   reducers: {
      usersSearchAction: (state,{payload}) => {
@@ -15,5 +15,5 @@ const contactsSlice = createSlice({
 export const {usersSearchAction} = contactsSlice.actions;
 
 
-export const contactsReducer = contactsSlice.reducer;
+// export const contactsReducer = contactsSlice.reducer;
 
