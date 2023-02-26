@@ -35,7 +35,6 @@ export const store = configureStore({
     [contactsSlice.name]:contactsSlice.reducer,
     auth: persistReducer(authPersistConfig, authReducer),
     [contactsApi.reducerPath]: contactsApi.reducer,
-    // filter: filterSlice.reducer,
   },
   middleware,
 });

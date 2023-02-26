@@ -19,7 +19,13 @@ export const Form = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        addContact(name,number);
+        const contact = {
+          name,
+          number
+        }
+        addContact(contact);
+        console.log('contact: ', contact);
+
         setNumber("");
         setName('');
         e.target.reset()
@@ -27,7 +33,7 @@ export const Form = () => {
        
          
         const checkIsInContacts = (data, value) => {
-          const checked = data.find(contact => contact.name === value) !== undefined;
+          const checked = data?.find(contact => contact.name === value) !== undefined;
           return checked
         }
         
