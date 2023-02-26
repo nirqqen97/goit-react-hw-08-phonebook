@@ -6,7 +6,7 @@ import {InputFilter} from "./InputFilter/InputFilter";
 import {Container,Title} from "./App.styled";
 import { selectFilters, } from "redux/Contacts/Contacts.selector";
 import { usersSearchAction,} from "redux/Contacts/Contacts.slice";
-import { useGetContactsQuery} from "redux/rtk-contacts/rtk-contacts.api";
+import { useFetchContactsQuery} from "redux/rtk-contacts/rtk-contacts.api";
 import { Header } from "./Header/Header";
 import Login from "./Login/Login";
 import { Register1 } from "./Register/Register";
@@ -14,7 +14,7 @@ import { Register1 } from "./Register/Register";
 
 
 export const App = () =>{
-  const {isLoading, isSuccess}= useGetContactsQuery()
+  const {isLoading, isSuccess}= useFetchContactsQuery()
   console.log('isSuccess: ', isSuccess);
   
 

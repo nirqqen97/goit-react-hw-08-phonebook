@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
 import { selectFilters } from "redux/Contacts/Contacts.selector";
-import { useGetContactsQuery } from "redux/rtk-contacts/rtk-contacts.api";
+import { useFetchContactsQuery } from "redux/rtk-contacts/rtk-contacts.api";
 import { ContactItem } from "../ContactItem/ContactItem";
 import { FormList } from "./Contacts.styled";
 
 
 export const Contacts = ({deleteFromContacts}) =>{
-  const {data}= useGetContactsQuery();
+  const {data}= useFetchContactsQuery();
   console.log('data: ', data);
   const filter = useSelector(selectFilters)
   const contactsFilter = () => {

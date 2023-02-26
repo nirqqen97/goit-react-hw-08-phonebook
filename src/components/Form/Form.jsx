@@ -2,14 +2,14 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import shortid from "shortid";
 import {FormWrap,SubmitBtn, Label} from "./Form.styled";
-import { useAddUserMutation, useGetContactsQuery } from "redux/rtk-contacts/rtk-contacts.api";
+import { usePostContactsMutation, useFetchContactsQuery } from "redux/rtk-contacts/rtk-contacts.api";
 import TextField from '@mui/material/TextField';
 
 export const Form = () => {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
-    const {data}= useGetContactsQuery()
-    const [addUser] = useAddUserMutation()
+    const {data}= useFetchContactsQuery()
+    const [addUser] = usePostContactsMutation()
 
     const handleNameChange = (e) =>{
         setName(e.currentTarget.value)
