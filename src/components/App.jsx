@@ -40,8 +40,7 @@ export const App = () => {
           <Route
             path="register"
             element={
-                <Register />
-            }
+              <RestrictedRouse element = {<Register/>} redirectTo = "contacts" />}
           />
         </Routes>
       </Container>

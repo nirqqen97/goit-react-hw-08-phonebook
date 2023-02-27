@@ -16,7 +16,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LinkTo } from './Login.styled';
 import { useDispatch } from 'react-redux';
-import { login, logOut } from 'redux/Auth/auth.operaiton';
+import { login } from 'redux/Auth/auth.operaiton';
 
 function Copyright(props) {
   return (
@@ -45,10 +45,7 @@ export default function Login() {
     setPassword(e.target.value)
     
   }
-  const clicks = () =>{
-    dispatch(logOut())
-  }
- 
+
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(login({email,password}))
@@ -120,7 +117,7 @@ export default function Login() {
             </Grid>
           </Box>
         </Box>
-        <button type='button' onClick={clicks}>asd</button>
+  
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
