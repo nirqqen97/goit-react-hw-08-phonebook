@@ -12,7 +12,6 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { authReducer } from './Auth/Auth.slice';
 import { contactsSlice } from './Contacts/Contacts.slice';
-// import { filterSlice } from './contacts/filterSlice';
 import { contactsApi } from './rtk-contacts/rtk-contacts.api';
 
 const middleware = getDefaultMiddleware => [

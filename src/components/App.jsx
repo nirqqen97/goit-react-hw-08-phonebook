@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Container, Title } from "./App.styled";
 import { Header } from "./Header/Header";
@@ -7,6 +7,7 @@ import Login from "./Login/Login";
 import { refreshUser } from "redux/Auth/auth.operaiton";
 import { RestrictedRouse } from "../RestrictedRoute";
 import { PrivateRoute } from "PrivateRoute";
+import { selectToken } from "redux/Auth/auth.selector";
 
 const LazyContactsPage = lazy(() => import("../ContactsPage/ContactsPage"));
 
@@ -14,10 +15,11 @@ const Register = lazy(() => import("./Register/Register"));
 
 export const App = () => {
   const dispatch = useDispatch();
-
+  const test = useSelector(selectToken)
+  
+  
   useEffect(() => {
-    
-
+    console.log('refreshing in useefc');
     dispatch(refreshUser());
   }, [dispatch]);
 
@@ -27,7 +29,14 @@ export const App = () => {
       <Container>
         <Routes>
           <Route path="/" element={<RestrictedRouse element = {<Login/>} redirectTo = "contacts" />} />
-
+          <Route
+            path="register"
+            element={
+              <Suspense fallback={<Title>Loading...</Title>}>
+              <RestrictedRouse element = {<Register/>} redirectTo = "contacts" />
+              </Suspense>
+              }
+          />
           <Route
             path="contacts"
             element={
@@ -37,14 +46,7 @@ export const App = () => {
               </Suspense>
             }
           />
-          <Route
-            path="register"
-            element={
-              <Suspense fallback={<Title>Loading...</Title>}>
-              <RestrictedRouse element = {<Register/>} redirectTo = "contacts" />
-              </Suspense>
-              }
-          />
+        
         </Routes>
       </Container>
     </BrowserRouter>

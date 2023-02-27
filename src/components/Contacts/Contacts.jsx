@@ -1,14 +1,18 @@
-import { useSelector } from "react-redux";
-// import { refreshUser } from "redux/Auth/auth.operaiton";
+import { useDispatch, useSelector } from "react-redux";
+import { refreshUser } from "redux/Auth/auth.operaiton";
 import { selectFilters } from "redux/Contacts/Contacts.selector";
 import { useFetchContactsQuery } from "redux/rtk-contacts/rtk-contacts.api";
 import { ContactItem } from "../ContactItem/ContactItem";
 import { FormList } from "./Contacts.styled";
 
  const Contacts = ({deleteFromContacts}) =>{
-  // const dispatch = useDispatch()
-  // const {data} = dispatch(refreshUser) 
-  const {data}= useFetchContactsQuery();
+  let {data}= useFetchContactsQuery();
+  const dispatch = useDispatch()
+  const refreshdata = dispatch(refreshUser) 
+  if (refreshdata.data) {
+    data = refreshdata
+  }
+  
   const filter = useSelector(selectFilters)
   const contactsFilter = () => {
     const filtered = data?.filter(contact =>  
