@@ -11,4 +11,11 @@ export const NavLinks = styled(NavLink)`
     text-decoration:none`
 
 export const Logout = styled(Button)`
-    margin : 20px;`
+    margin : 20px;
+    `;
+
+export const Name = styled.p`
+    margin : 20px;
+    color:blue;`
+
+export const Wrap = styled.div``
