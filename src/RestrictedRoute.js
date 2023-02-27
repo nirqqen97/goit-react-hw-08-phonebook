@@ -4,7 +4,7 @@ import { selectIsLoggedIn } from "redux/Auth/auth.selector"
 
 export const RestrictedRouse = ({element, redirectTo = '/'}) =>{
     const isLoggedIn = useSelector(selectIsLoggedIn)
-    console.log('isLoggedIn: ', isLoggedIn);
-    return isLoggedIn ? <Navigate to="contacts"/> : element
+    
+    return isLoggedIn ? <Navigate to={redirectTo}/> : element
 
 }
