@@ -32,149 +32,49 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
-
-export const Register1 = () =>{
+export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
-    const dispatch = useDispatch()
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState("");
-    
-    
-    const handleSubmit = (event) => {
-        event.preventDefault();
+  const dispatch = useDispatch();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const contact = {
       name,
       password,
-      email
-    }
+      email,
+    };
     try {
       setIsLoading(true);
       dispatch(register(contact));
       setName('');
       setEmail('');
-      setPassword('')
+      setPassword('');
       setIsLoading(false);
-
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  
-      };
-      const handleName = (e) =>{
-          setName(e.target.value)
-      }
-      const handleMail = (e) =>{
-          setEmail(e.target.value)
-      }
-      const handlePassword = (e) => {
-          setPassword(e.target.value)
-      }
-      return (
-        <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            {isLoading && <p>Loading</p>}
-            <Box
-              sx={{
-                marginTop: 8,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}
-            >
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Sign up
-              </Typography>
-              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      autoComplete="given-name"
-                      name="firstName"
-                      required
-                      fullWidth
-                      id="firstName"
-                      label="Name"
-                      autoFocus
-                      onInput={handleName}
-                      value = {name}
-                    />
-                  </Grid>
-    
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      autoComplete="email"
-                      onInput={handleMail}
-                      value = {email}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="new-password"
-                      onInput={handlePassword}
-                      value = {password}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormControlLabel
-                      control={<Checkbox value="allowExtraEmails" color="primary" />}
-                      label="I want to receive inspiration, marketing promotions and updates via email."
-                    />
-                  </Grid>
-                </Grid>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Sign Up
-                </Button>
-                <Grid container justifyContent="flex-end">
-                  <Grid item>
-                    <LinkTo to='/'>
-                      Already have an account? Sign in
-                      </LinkTo>
-                    
-                  </Grid>
-                </Grid>
-              </Box>
-            </Box>
-            <Copyright sx={{ mt: 5 }} />
-          </Container>
-        </ThemeProvider>
-      );
-}
-export default function Register() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
   };
-
+  
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
+  
+  const handleMail = (e) => {
+    setEmail(e.target.value);
+  };
+  
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        {isLoading && <p>Loading</p>}
         <Box
           sx={{
             marginTop: 8,
@@ -200,7 +100,8 @@ export default function Register() {
                   id="firstName"
                   label="Name"
                   autoFocus
-                  
+                  onInput={handleName}
+                  value={name}
                 />
               </Grid>
 
@@ -212,6 +113,8 @@ export default function Register() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onInput={handleMail}
+                  value={email}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -223,6 +126,8 @@ export default function Register() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onInput={handlePassword}
+                  value={password}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -242,10 +147,9 @@ export default function Register() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <LinkTo to='/'>
+                <LinkTo to="/">
                   Already have an account? Sign in
-                  </LinkTo>
-                
+                </LinkTo>
               </Grid>
             </Grid>
           </Box>

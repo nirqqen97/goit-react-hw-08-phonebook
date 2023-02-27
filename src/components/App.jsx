@@ -1,53 +1,50 @@
-import { useDispatch, useSelector } from "react-redux";
+import { lazy, Suspense, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { Form } from "./Form/Form";
-import {Contacts } from "./Contacts/Contacts";
-import {InputFilter} from "./InputFilter/InputFilter";
-import {Container,Title} from "./App.styled";
-import { selectFilters, } from "redux/Contacts/Contacts.selector";
-import { usersSearchAction,} from "redux/Contacts/Contacts.slice";
-import { useFetchContactsQuery} from "redux/rtk-contacts/rtk-contacts.api";
+import { Container, Title } from "./App.styled";
 import { Header } from "./Header/Header";
 import Login from "./Login/Login";
-import { Register1 } from "./Register/Register";
-import { useEffect } from "react";
 import { refreshUser } from "redux/Auth/auth.operaiton";
+import { RestrictedRouse } from "../RestrictedRoute";
+import { PrivateRoute } from "PrivateRoute";
 
+const LazyContactsPage = lazy(() => import("../ContactsPage/ContactsPage"));
 
+const Register = lazy(() => import("./Register/Register"));
 
-export const App = () =>{
-  const {isLoading, isSuccess}= useFetchContactsQuery()
+export const App = () => {
+  const dispatch = useDispatch();
 
-  const filter = useSelector(selectFilters)
-
-  const dispatch = useDispatch()
-  
-  const addFilter = (value) => {
-    dispatch(usersSearchAction(value))
-  }
   useEffect(() => {
+    console.log("updating users");
+
     dispatch(refreshUser());
   }, [dispatch]);
 
-
   return (
     <BrowserRouter basename="goit-react-hw-08-phonebook">
-      <Header/>
-    <Container>
-      <Routes>
-        <Route path="/" element={<Login/>}/>
-        
-        <Route path="contacts" element={<>  <Form/>
-          <Title>Contacts</Title>
-          <InputFilter onInput={addFilter} value={filter}/>
-          {isLoading && <Title>Loading...</Title>}
-          {isSuccess &&  <Contacts/>}</>}/>
-          <Route path="register" element = {<Register1/>}/>
-      </Routes>
-    </Container>
+      <Header />
+      <Container>
+        <Routes>
+          <Route path="/" element={<RestrictedRouse element = {<Login/>} redirectTo = "contacts" />} />
+
+          <Route
+            path="contacts"
+            element={
+              <Suspense fallback={<Title>Loading...</Title>}>
+                <PrivateRoute element = {<LazyContactsPage/>} redirectTo = "/" />
+              
+              </Suspense>
+            }
+          />
+          <Route
+            path="register"
+            element={
+                <Register />
+            }
+          />
+        </Routes>
+      </Container>
     </BrowserRouter>
-  )
-}
-
-
-// {isSuccess &&  <Contacts/>}
+  );
+};

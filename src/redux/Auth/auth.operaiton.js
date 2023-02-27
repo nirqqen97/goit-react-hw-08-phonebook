@@ -48,13 +48,13 @@ export const refreshUser = createAsyncThunk(
     'auth/refresh',
     async (_, thunkAPI) => {
       const state = thunkAPI.getState();
-      const persistedToken = state.users.token;
-      console.log('persistedToken: ', persistedToken);
+      const persistedToken = state.auth.token;
       if (!persistedToken) {
         return thunkAPI.rejectWithValue('Unable to fetch user');
       }
       try {
         token.set(persistedToken);
+        console.log('persistedToken: ', persistedToken);
         const {data} = await axios.get('/users/current');
         console.log('data: ', data);
         return data;

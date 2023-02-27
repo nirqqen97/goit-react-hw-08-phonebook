@@ -1,10 +1,13 @@
 import { useSelector } from "react-redux";
+// import { refreshUser } from "redux/Auth/auth.operaiton";
 import { selectFilters } from "redux/Contacts/Contacts.selector";
 import { useFetchContactsQuery } from "redux/rtk-contacts/rtk-contacts.api";
 import { ContactItem } from "../ContactItem/ContactItem";
 import { FormList } from "./Contacts.styled";
 
-export const Contacts = ({deleteFromContacts}) =>{
+ const Contacts = ({deleteFromContacts}) =>{
+  // const dispatch = useDispatch()
+  // const {data} = dispatch(refreshUser) 
   const {data}= useFetchContactsQuery();
   const filter = useSelector(selectFilters)
   const contactsFilter = () => {
@@ -18,4 +21,7 @@ export const Contacts = ({deleteFromContacts}) =>{
         })}
     </FormList>
 }
+
+export default Contacts;
+
 
