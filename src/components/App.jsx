@@ -40,7 +40,10 @@ export const App = () => {
           <Route
             path="register"
             element={
-              <RestrictedRouse element = {<Register/>} redirectTo = "contacts" />}
+              <Suspense fallback={<Title>Loading...</Title>}>
+              <RestrictedRouse element = {<Register/>} redirectTo = "contacts" />
+              </Suspense>
+              }
           />
         </Routes>
       </Container>

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import shortid from "shortid";
 import {FormWrap,SubmitBtn, Label} from "./Form.styled";
 import { usePostContactsMutation, useFetchContactsQuery } from "redux/rtk-contacts/rtk-contacts.api";
 import TextField from '@mui/material/TextField';
@@ -24,8 +23,6 @@ export const Form = () => {
           number
         }
         addContact(contact);
-        console.log('contact: ', contact);
-
         setNumber("");
         setName('');
         e.target.reset()
@@ -42,7 +39,7 @@ export const Form = () => {
       alert(`${name} is already in contacts`);
       return;
     }
-    addUser({ id: shortid.generate(), name, number });
+    addUser(name,number );
   };
 
   return(
